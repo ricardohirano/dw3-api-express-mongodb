@@ -9,11 +9,12 @@ import gameRoutes from './routes/gameRoutes.js'
 
 // Carregando Express
 const app = express();
+// Configurações do Express
+app.use(express.urlencoded({extended: false}))
+app.use(express.json());
 // Carregando as rotas de games
 app.use('/', gameRoutes)
 
-// Configurações do Express
-app.use(express.json());
 
 // Iniciando a conexão com o MongoDB
 mongoose.connect("mongodb://127.0.0.1:27017/apithegames")
