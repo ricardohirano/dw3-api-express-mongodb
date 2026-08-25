@@ -20,6 +20,26 @@ const getAllGames = async (req, res) => {
       });
   }
 };
+//Função que trata a requisicao para listar um jogo Unico
+
+const getOneGame = async (req, res)=> {
+  try {
+    const id = req.params.id
+    if (ObjectId.isValid(id)){
+      const game = await gameService.getOne(id) // pode ser qu eo id nao ser encontrado no banco entao tem q ser tratado
+      if (!game) {
+        res.status(404).json({error: 'Jogo não encontrado'}) // 404 - NOT FOUND
+      }else {
+        res.status(200).json({game});
+      }
+    }else{
+       res.status(400).json({game})
+    }   
+  }catch(error){
+    console.log(error);
+    res.status(500).json({error : 'Erro interno do servidor'})
+  }
+}
 
 //Funcao que ira tratar a requisicao para cadastrar os jogos
 const createGame = async (req, res) => {
@@ -75,4 +95,4 @@ const updateGame = async (req,res)=>{
     }
 }
 // Exportando as funções
-export default { getAllGames, createGame, deleteGame, updateGame };
+export default { getAllGames, createGame, deleteGame, updateGame, getOneGame };

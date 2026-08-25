@@ -17,6 +17,15 @@ class gameService {
       console.log(error);
     }
   }
+  //Metodo para listar um registro unico
+  async getOne(id) {
+    try{ // metodo do mongoose para selecionar um registro unico
+      const game = await Game.findOne({_id : id}) // no mongoDB o id fica com o underline _id)
+      return game
+    }catch(error){
+      console.log(error)
+    }
+  } 
   //Metodo para cadastrar jogos
   async Create(title, year, platform, price) {
     try {
